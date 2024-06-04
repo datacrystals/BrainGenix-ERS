@@ -3,6 +3,7 @@
 //======================================================================//
 
 #include "Mesh.h"
+#include "../ERS_STRUCT_Vertex/Vertex.h"
 
 
 void ERS_STRUCT_Mesh::SetupMesh() {
@@ -63,6 +64,48 @@ void ERS_STRUCT_Mesh::SetupMesh() {
 
 
 
+}
+
+
+void ERS_STRUCT_Mesh::GenerateUVSphere(float radius, int sectorCount, int stackCount, std::vector<ERS_STRUCT_Vertex>& vertices, std::vector<unsigned int>& indices) {
+    float x, y, z, xy; 
+    float nx, ny, nz, lengthInv = 1.0f / radius; 
+    float s, t;
+
+    float sectorStep = 2 * M_PI / sectorCount;
+    float stackStep = M_PI / stackCount;
+    float sectorAngle, stackAngle;
+
+    for (int i = 0; i <= stackCount; ++i) {
+        stackAngle = M_PI / 2 - i * stackStep; 
+        xy = radius * cosf(stackAngle); 
+        z = radius * sinf(stackAngle); 
+
+        for (int j = 0; j <= sectorCount; ++j) {
+            sectorAngle = j * sectorStep; 
+
+            x = xy * cosf(sectorAngle); 
+            y = xy * sinf(sectorAngle); 
+            ERS_STRUCT_Vertex vertex;
+            vertex.Position = glm::vec3(x, y, z);
+            vertex.Normal = glm::vec3(x * lengthInv, y * lengthInv, z * lengthInv);
+            vertex.TexCoords = glm::vec2((float)j / sectorCount, (float)i / stackCount);
+            vertices.push_back(vertex);
+
+            if (i != 0 && j != 0) {
+                int cur = i * (sectorCount + 1) + j;
+                int prev = (i - 1) * (sectorCount + 1) + j;
+
+                indices.push_back(prev);
+                indices.push_back(cur);
+                indices.push_back(cur - 1);
+
+                indices.push_back(prev - 1);
+                indices.push_back(prev);
+                indices.push_back(cur - 1);
+            }
+        }
+    }
 }
 
 void ERS_STRUCT_Mesh::ResetTexture(const char* Name, int Offset, unsigned int ShaderProgram, unsigned int TextureID) {

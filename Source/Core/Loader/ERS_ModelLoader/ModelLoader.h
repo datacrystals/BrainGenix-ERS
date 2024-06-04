@@ -157,6 +157,8 @@ private:
      * @param Model 
      */
     void MatchTextures(ERS_STRUCT_Model* Model);
+    
+   // void InitializeSphereModel(float radius, int sectorCount, int stackCount);
 
 
 

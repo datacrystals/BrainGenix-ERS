@@ -536,6 +536,27 @@ void ERS_CLASS_ViewportMenu::DrawMenu(ERS_STRUCT_Viewport* Viewport, ERS_CLASS_S
 
             // Mode selector
             if (ImGui::BeginMenu("Mode")) {
+                
+                if (ImGui::MenuItem("Plain Color", nullptr, Viewport->BoundingSphereRenderer->GetBoundingSphereDisplayMode() == 0)) {
+                    Viewport->BoundingSphereRenderer->SetBoundingSphereDisplayMode(0);
+                }
+
+                if (ImGui::MenuItem("Target Texture Level (RAM)", nullptr, Viewport->BoundingSphereRenderer->GetBoundingSphereDisplayMode() == 1)) {
+                    Viewport->BoundingSphereRenderer->SetBoundingSphereDisplayMode(1);
+                }
+
+                if (ImGui::MenuItem("Target Texture Level (VRAM)", nullptr, Viewport->BoundingSphereRenderer->GetBoundingSphereDisplayMode() == 2)) {
+                    Viewport->BoundingSphereRenderer->SetBoundingSphereDisplayMode(2);
+                }
+
+                if (ImGui::MenuItem("Current Texture Level (RAM)", nullptr, Viewport->BoundingSphereRenderer->GetBoundingSphereDisplayMode() == 3)) {
+                    Viewport->BoundingSphereRenderer->SetBoundingSphereDisplayMode(3);
+                }
+
+                if (ImGui::MenuItem("Current Texture Level (VRAM)", nullptr, Viewport->BoundingSphereRenderer->GetBoundingSphereDisplayMode() == 4)) {
+                    Viewport->BoundingSphereRenderer->SetBoundingSphereDisplayMode(4);
+                }
+                /*
                 if (ImGui::MenuItem("Plain Color", nullptr, Viewport->BoundingBoxRenderer->GetBoundingBoxDisplayMode() == 0)) {
                     Viewport->BoundingBoxRenderer->SetBoundingBoxDisplayMode(0);
                 }
@@ -553,8 +574,8 @@ void ERS_CLASS_ViewportMenu::DrawMenu(ERS_STRUCT_Viewport* Viewport, ERS_CLASS_S
                 }
 
                 if (ImGui::MenuItem("Current Texture Level (VRAM)", nullptr, Viewport->BoundingBoxRenderer->GetBoundingBoxDisplayMode() == 4)) {
-                    Viewport->BoundingBoxRenderer->SetBoundingBoxDisplayMode(4);
-                }
+                    Viewport->BoundingBoxRenderer->SetBoundingBoxDisplayMode(4);*/
+                
             ImGui::EndMenu();
             }
 

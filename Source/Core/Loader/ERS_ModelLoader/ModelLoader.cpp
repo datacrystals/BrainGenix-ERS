@@ -16,9 +16,9 @@ ERS_CLASS_ModelLoader::ERS_CLASS_ModelLoader(ERS_STRUCT_SystemUtils* SystemUtils
     FreeImage_Initialise();
 
 
-
+    ERS_STRUCT_Model Model;
     AssetStreamingManager_ = std::make_unique<ERS_CLASS_AssetStreamingManager>(SystemUtils_);
-    
+    Model.InitializeSphereModel(7.0f, 36, 18);
 
 
     if (MaxModelLoadingThreads == -1) {
@@ -34,6 +34,7 @@ ERS_CLASS_ModelLoader::ERS_CLASS_ModelLoader(ERS_STRUCT_SystemUtils* SystemUtils
 
     //SystemUtils_->Logger_->Log("Creating Reference Loading Thread", 5);
     //ModelRefrenceThread_ = std::thread(&ERS_CLASS_ModelLoader::ReferenceThread, this);
+
 
 
 }

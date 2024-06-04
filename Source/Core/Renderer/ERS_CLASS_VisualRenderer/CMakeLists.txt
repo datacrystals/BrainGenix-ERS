@@ -17,6 +17,8 @@ add_library(ERS_CLASS_VisualRenderer
             "ViewportOverlay.cpp"
             "ViewportMenu.cpp"
             "BoundingBoxRenderer.cpp"
+            "BoundingSphereRenderer.cpp"
+
             "FindShaderByName.cpp"
             "CheckForMeshTransparency.cpp"
             "MeshTransparencySort.cpp"
@@ -40,6 +42,7 @@ add_library(ERS_CLASS_VisualRenderer
             "ViewportOverlay.h"
             "ViewportMenu.h"
             "BoundingBoxRenderer.h"
+            "BoundingSphereRenderer.h"
             "FindShaderByName.h"
             "CheckForMeshTransparency.h"
             "MeshTransparencySort.h"

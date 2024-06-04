@@ -31,6 +31,8 @@
 #include <ViewportMenu.h>
 #include <ShadowMaps.h>
 #include <BoundingBoxRenderer.h>
+#include <BoundingSphereRenderer.h>
+
 
 #include <SceneManager.h>
 #include <SceneLoader.h>

@@ -78,5 +78,16 @@ struct ERS_STRUCT_Mesh {
      */
     void UpdateTransparencyStatus(); 
 
+    void GenerateUVSphere(float radius, int sectorCount, int stackCount, std::vector<ERS_STRUCT_Vertex>& vertices, std::vector<unsigned int>& indices);
+     // Load function to load mesh data
+   void Load(const std::vector<ERS_STRUCT_Vertex>& newVertices, const std::vector<unsigned int>& newIndices) {
+    Vertices = newVertices;
+    Indices = newIndices;
+    std::cout << "Mesh loaded with " << Indices.size() << " indices." << std::endl;
+}
+
+unsigned int GetTotalIndicesCount() const {
+    return Indices.size();
+}
 
 };

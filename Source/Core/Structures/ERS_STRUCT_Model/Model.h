@@ -207,7 +207,27 @@ struct ERS_STRUCT_Model {
      * 
      */
     void UpdateMeshTransparency();
+    glm::vec3 GetPosition() const {
+    return ModelPosition;
+}
 
+float GetBoundingRadius() const {
+    float maxDistanceSquared = 0.0f;
+
+    // Iterate through all vertices of all meshes to find the maximum distance from the origin
+    for (const auto& mesh : Meshes) {
+        for (const auto& vertex : mesh.Vertices) {
+            float distanceSquared = vertex.Position.x * vertex.Position.x +
+                                    vertex.Position.y * vertex.Position.y +
+                                    vertex.Position.z * vertex.Position.z;
+            maxDistanceSquared = std::max(maxDistanceSquared, distanceSquared);
+        }
+    }
+
+    // Return the square root of the maximum distance squared to get the bounding radius
+    return std::sqrt(maxDistanceSquared);
+}
+    void InitializeSphereModel(float radius, int sectorCount, int stackCount);
 
 };
 

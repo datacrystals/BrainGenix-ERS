@@ -18,7 +18,23 @@ void ERS_STRUCT_Model::SetPosition(glm::vec3 Position) {
     ModelPosition = Position;
 
 }
+void ERS_STRUCT_Model::InitializeSphereModel(float radius, int sectorCount, int stackCount) {
+    // Vectors to hold the vertex data and indices
+    std::vector<ERS_STRUCT_Vertex> vertices;
+    std::vector<unsigned int> indices;
 
+    // Create a mesh for the sphere
+    ERS_STRUCT_Mesh sphereMesh;
+
+    // Generate the vertices and indices for a UV sphere
+    sphereMesh.GenerateUVSphere(radius, sectorCount, stackCount, vertices, indices);
+
+    // Load the generated data into the sphere mesh
+    sphereMesh.Load(vertices, indices);
+
+    // Add the mesh to the model's mesh list
+    Meshes.push_back(sphereMesh);
+}
 void ERS_STRUCT_Model::SetRotation(double X, double Y, double Z) {
 
     ModelRotation = glm::vec3((float)X, (float)Y, (float)Z);

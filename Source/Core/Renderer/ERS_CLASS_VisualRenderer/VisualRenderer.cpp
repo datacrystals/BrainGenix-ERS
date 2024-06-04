@@ -529,15 +529,22 @@ void ERS_CLASS_VisualRenderer::UpdateViewport(int Index, ERS_CLASS_SceneManager*
             Viewport->IconRenderer->Draw(Viewport->Camera.get(), SceneManager);
         }
 
-        Viewport->BoundingBoxRenderer->SetDepthTest(Viewport->DisableBoundingBoxDepthTest_);
+        /*Viewport->BoundingBoxRenderer->SetDepthTest(Viewport->DisableBoundingBoxDepthTest_);
         Viewport->BoundingBoxRenderer->SetDrawMode(Viewport->WireframeBoundingBoxes_);
         if (Viewport->ShowBoundingBox_) {
             Viewport->BoundingBoxRenderer->DrawAll(Viewport->Camera.get(), Scene);
+        }*/
+           Viewport->BoundingSphereRenderer->SetDepthTest(Viewport->DisableBoundingBoxDepthTest_);
+        Viewport->BoundingSphereRenderer->SetDrawMode(Viewport->WireframeBoundingBoxes_);
+        if (Viewport->ShowBoundingBox_) {
+            Viewport->BoundingSphereRenderer->DrawAll(Viewport->Camera.get(), Scene);
         }
         if (Scene->SceneObjects_.size() > 0) {
             if (Viewport->ShowBoxOnSelectedModel_ && Scene->SceneObjects_[Scene->SelectedObject].Type_ == std::string("Model")) {
                 unsigned long ModelIndex = Scene->SceneObjects_[Scene->SelectedObject].Index_;
-                Viewport->BoundingBoxRenderer->DrawModel(Viewport->Camera.get(), Scene->Models[ModelIndex].get());
+                //Viewport->BoundingBoxRenderer->DrawModel(Viewport->Camera.get(), Scene->Models[ModelIndex].get());
+                Viewport->BoundingSphereRenderer->DrawModel(Viewport->Camera.get(), Scene->Models[ModelIndex].get());
+
             }
         }
 
@@ -653,7 +660,8 @@ void ERS_CLASS_VisualRenderer::CreateViewport(std::string ViewportName) {
 
     Viewport->Grid = std::make_unique<ERS_CLASS_Grid>(SystemUtils_, Shaders_[ERS_FUNCTION_FindShaderByName(std::string("_Grid"), &Shaders_)].get());
     Viewport->IconRenderer = std::make_unique<ERS_CLASS_IconRenderer>(OpenGLDefaults_, SystemUtils_, Shaders_[ERS_FUNCTION_FindShaderByName(std::string("_LightIcon"), &Shaders_)].get()); //Set TO Shader 19 For Billboard Shader, Temp. Disabled As It Doesn't Work ATM
-    Viewport->BoundingBoxRenderer = std::make_unique<ERS_CLASS_BoundingBoxRenderer>(SystemUtils_, Shaders_[ERS_FUNCTION_FindShaderByName(std::string("_BoundingBox"), &Shaders_)].get());
+    //Viewport->BoundingBoxRenderer = std::make_unique<ERS_CLASS_BoundingBoxRenderer>(SystemUtils_, Shaders_[ERS_FUNCTION_FindShaderByName(std::string("_BoundingBox"), &Shaders_)].get());
+    Viewport->BoundingSphereRenderer = std::make_unique<ERS_CLASS_BoundingSphereRenderer>(SystemUtils_, Shaders_[ERS_FUNCTION_FindShaderByName(std::string("_BoundingSphere"), &Shaders_)].get());
     Viewport->Name = ViewportName;
     
     Viewport->Width = 1;
